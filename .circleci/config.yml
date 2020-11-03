@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Set Environment Variables
           command: |
-            export SHA=git rev-parse HEAD
+            export SHA=$(git rev-parse HEAD)
             export CLOUDSDK_CORE_DISABLE_PROMPTS=1
       - run:
           name: Build and Test Images
