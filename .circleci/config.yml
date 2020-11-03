@@ -6,32 +6,32 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Installing and Configuring Google Cloud
-        command: |
-          curl https://sdk.cloud.google.com | bash > /dev/null;
-          source $Home/google-cloud-sdk/path.bash.inc
-          echo ${GOOGLE_SERVICE_ACCOUNT} > /tmp/sa_key.json
-          gcloud auth activate-service-account --key-file=/tmp/sa_key.json
-          rm /tmp/sa_key.json
-          gcloud components update kubectl
-          gcloud config set project k8s-app-294415
-          gcloud config set compute/zone europe-west1-d
-          gcloud container clusters get-credentials k8s-app-cluster
+          name: Installing and Configuring Google Cloud
+          command: |
+            curl https://sdk.cloud.google.com | bash > /dev/null;
+            source $Home/google-cloud-sdk/path.bash.inc
+            echo ${GOOGLE_SERVICE_ACCOUNT} > /tmp/sa_key.json
+            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
+            rm /tmp/sa_key.json
+            gcloud components update kubectl
+            gcloud config set project k8s-app-294415
+            gcloud config set compute/zone europe-west1-d
+            gcloud container clusters get-credentials k8s-app-cluster
       - run:
-        name: Build and Test Images
-        command: | 
-          echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_ID --password-stdin
-          docker build -t amilinko/react-test -f ./client/Dockerfile.dev ./client
-          docker run -e CI=true amilinko/react-test npm test
+          name: Build and Test Images
+          command: | 
+            echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_ID --password-stdin
+            docker build -t amilinko/react-test -f ./client/Dockerfile.dev ./client
+            docker run -e CI=true amilinko/react-test npm test
       - run:
-        name: Set Environment Variables
-        command: |
-          export SHA=git rev-parse HEAD
-          export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+          name: Set Environment Variables
+          command: |
+            export SHA=git rev-parse HEAD
+            export CLOUDSDK_CORE_DISABLE_PROMPTS=1
       - run:
-        name: Build and Test Images
-        command: | 
-          bash ./deploy.sh
+          name: Build and Test Images
+          command: | 
+            bash ./deploy.sh
 
 
 workflows:
