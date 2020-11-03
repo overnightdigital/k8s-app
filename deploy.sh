@@ -1,3 +1,4 @@
+SHA=$(git rev-parse HEAD)
 docker build -t amilinko/client:latest -t amilinko/client:$SHA -f ./client/Dockerfile ./client
 docker build -t amilinko/server:latest -t amilinko/server:$SHA -f ./server/Dockerfile ./server
 docker build -t amilinko/worker:latest -t amilinko/worker:$SHA -f ./worker/Dockerfile ./worker
