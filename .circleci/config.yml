@@ -11,7 +11,6 @@ jobs:
             echo ${GOOGLE_SERVICE_ACCOUNT} > /tmp/sa_key.json
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
-            sudo gcloud components update
             gcloud components install kubectl
             gcloud config set project k8s-app-294415
             gcloud config set compute/zone europe-west1-d
