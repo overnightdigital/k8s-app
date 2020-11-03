@@ -6,10 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Installing and Configuring Google Cloud
+          name: Google Cloud Config
           command: |
-            curl https://sdk.cloud.google.com | bash > /dev/null;
-            source $Home/google-cloud-sdk/path.bash.inc
             echo ${GOOGLE_SERVICE_ACCOUNT} > /tmp/sa_key.json
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
