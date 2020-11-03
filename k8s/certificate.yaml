@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: studitech-com-tls
+spec:
+  secretName: studitech-com-tls
+  issuerRef: 
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: studitech.com
+  dnsNames:
+    - studitech.com
+    - www.studitech.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - studitech.com
+          - www.studitech.com
